@@ -1,0 +1,88 @@
+{
+    "name": "@photon-ai/imessage-kit",
+    "version": "2.1.2",
+    "description": "A type-safe, elegant iMessage SDK for macOS with zero dependencies",
+    "author": "GreatSomething",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/photon-hq/imessage-kit.git"
+    },
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org/",
+        "access": "public"
+    },
+    "type": "module",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        }
+    },
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+    ],
+    "keywords": [
+        "imessage",
+        "sms",
+        "rcs",
+        "macos",
+        "typescript",
+        "sdk"
+    ],
+    "scripts": {
+        "dev": "tsup --watch",
+        "build": "tsup",
+        "type-check": "tsc --noEmit",
+        "lint": "biome check .",
+        "lint:fix": "biome check --write .",
+        "format": "biome format --write .",
+        "test": "bun test",
+        "test:node": "node --test",
+        "test:watch": "bun test --watch",
+        "test:coverage": "bun test --coverage",
+        "prepublishOnly": "npm run lint && npm run type-check && npm run test && npm run build",
+        "prepack": "npm run build",
+        "check:package": "bash scripts/check-package.sh",
+        "check:publish": "bash scripts/publish-check.sh"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "^1.9.4",
+        "@types/better-sqlite3": "^7.6.0",
+        "@types/bun": "^1.0.0",
+        "@types/node": "^20.0.0",
+        "tsup": "^8.0.0",
+        "typescript": "^5.3.0"
+    },
+    "optionalDependencies": {
+        "better-sqlite3": "^12.8.0"
+    },
+    "overrides": {
+        "glob": "^11.1.0",
+        "rollup": "^4.59.0",
+        "minimatch": "^10.2.4",
+        "@isaacs/brace-expansion": "^5.0.1"
+    },
+    "resolutions": {
+        "glob": "^11.1.0",
+        "rollup": "^4.59.0",
+        "minimatch": "^10.2.4",
+        "@isaacs/brace-expansion": "^5.0.1"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "sideEffects": false,
+    "dependencies": {
+        "@parseaple/typedstream": "^2.0.0",
+        "@photon-ai/imessage-kit": "^2.1.2",
+        "dotenv": "^17.3.1",
+        "openai": "^6.32.0"
+    }
+}
