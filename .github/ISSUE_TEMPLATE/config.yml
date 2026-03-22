@@ -1,9 +1,0 @@
----
-blank_issues_enabled: false
-contact_links:
-  - name: 💬 Questions & Discussions
-    url: https://github.com/photon-hq/imessage-kit/discussions
-    about: Ask questions, share ideas, or discuss usage with the community
-  - name: 📖 Documentation
-    url: https://github.com/photon-hq/imessage-kit#readme
-    about: Check the README and examples before opening an issue
