@@ -4,6 +4,8 @@
 
 Hooligan is a conversational planning agent that runs inside iMessage. Instead of opening another app, the user texts it like a friend: “I have two hours,” “coffee + views,” or “planning a trip.” The agent asks follow-up questions, remembers lightweight preferences, avoids repeating suggestions, and can send scheduled nudges during the day.
 
+![Hooligan agent flow](media/agent-flow.svg)
+
 ## Why this exists
 
 Planning small moments often takes more effort than the moment itself. People bounce between maps, notes, group chats, saved posts, and recommendation apps just to answer a simple question: what should I do now?

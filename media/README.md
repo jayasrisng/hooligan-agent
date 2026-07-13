@@ -1,11 +1,11 @@
 # Hooligan Media
 
-This folder is reserved for README and project media.
+This folder contains README and project media.
 
 ## Useful assets
 
-1. `hooligan-message-flow.gif` — short demo of a safe text conversation.
-2. `agent-flow.png` — diagram of iMessage → Photon SDK → agent → OpenAI → reply.
+1. `agent-flow.svg` — privacy-safe diagram of trigger → validation → routing → execution → logging.
+2. `hooligan-message-flow.gif` — optional short demo of a safe text conversation.
 3. `memory-model.png` — simple visual of local visited/liked memory.
 
 ## Capture guidance
