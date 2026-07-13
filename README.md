@@ -1,159 +1,130 @@
-````md
-# hooligan
+# Hooligan
 
-an iMessage-native AI sidekick for deciding what to do, where to go, and how to spend your time.
+**An iMessage-native AI sidekick for deciding what to do, where to go, and how to spend free time.**
 
-no apps. no UI. just text.
+Hooligan is a conversational planning agent that runs inside iMessage. Instead of opening another app, the user texts it like a friend: “I have two hours,” “coffee + views,” or “planning a trip.” The agent asks follow-up questions, remembers lightweight preferences, avoids repeating suggestions, and can send scheduled nudges during the day.
 
-## what is hooligan?
+## Why this exists
 
-hooligan is a conversational agent you text like a friend.
+Planning small moments often takes more effort than the moment itself. People bounce between maps, notes, group chats, saved posts, and recommendation apps just to answer a simple question: what should I do now?
 
-you send:
-- “i have 2 hours”
-- “coffee + views”
-- “planning a trip”
+Hooligan explores a lower-friction interaction:
 
-it:
-- asks follow-up questions
-- understands your vibe
-- suggests plans
-- avoids repeating the same recommendations
-- learns from what you like
+> What if planning felt like texting a friend instead of operating another app?
 
-it can also proactively message you during the day.
+## What it does
 
----
+- Responds to iMessage conversations through the Photon iMessage SDK.
+- Maintains lightweight local memory for visited and liked places.
+- Uses OpenAI responses for short, conversational planning.
+- Avoids repeating suggestions already stored in memory.
+- Supports proactive reminders such as morning and midday check-ins.
+- Keeps the interaction text-first: no custom UI, no separate app surface.
 
-## how it works
+## How it works
 
-- runs on the Photon iMessage SDK  
-- listens to incoming messages  
-- maintains lightweight user state  
-- generates responses using OpenAI  
-- stores simple memory (visited / liked)
+```mermaid
+flowchart LR
+    A["Incoming iMessage"] --> B["Photon iMessage SDK"]
+    B --> C["Hooligan agent"]
+    C --> D["Local memory.json"]
+    C --> E["OpenAI response"]
+    E --> F["Reply in iMessage"]
+    G["Scheduled reminders"] --> C
+```
 
-everything happens inside iMessage.
+## Setup
 
-
-## setup
-
-### 1. clone
+Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/hooligan.git
-cd hooligan
-````
+git clone https://github.com/jayasrisng/hooligan-agent.git
+cd hooligan-agent
+```
 
-### 2. install
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-### 3. create `.env`
-
-in the root directory:
-
-```
-.env
-```
-
-add:
+Create a `.env` file in the repository root:
 
 ```bash
 OPENAI_API_KEY=your_openai_api_key
 MY_NUMBER=+1XXXXXXXXXX
 ```
 
-notes:
+Notes:
 
-* include country code in your phone number
-* never commit `.env`
+- Include the country code in `MY_NUMBER`.
+- Never commit `.env`.
+- `memory.json` is local runtime state and should not be treated as public data.
 
-### 4. run
+Run the agent:
 
 ```bash
 npx tsx hooligan-agent.ts
 ```
 
-## usage
+## Example flow
 
-start the agent, then text it.
-
-example flow:
-
-```
+```text
 you: hey
 hooligan: hey where are you rn 👀
 
 you: honolulu
 hooligan: what are we feeling today
-         chill / coffee / outdoors / chaotic / aesthetic
+          chill / coffee / outdoors / chaotic / aesthetic
 
 you: coffee + views
 hooligan: how much time + budget?
 
 you: 2 hours
-hooligan: [suggests a plan]
+hooligan: suggests a plan
 ```
 
+## Memory
 
-## features
+Hooligan stores simple preference state locally:
 
-* conversational planning (no UI)
-* short, human-like responses
-* multi-step interaction flow
-* simple memory (visited + liked)
-* avoids repeating suggestions
-* proactive nudges (morning + midday)
+- places the user has tried;
+- places or activities the user liked.
 
+This state is stored in `memory.json` so future suggestions can avoid repetition and reflect prior feedback.
 
-## memory
+## Proactive messages
 
-hooligan stores:
+The current prototype uses Photon reminders for scheduled nudges:
 
-* places you’ve tried
-* what you liked
+- 9 AM — morning check-in;
+- 2 PM — midday suggestion.
 
-example:
+These times can be changed in the code.
 
-```
-you: i loved that place
-```
+## Tech stack
 
-this improves future recommendations.
+- Photon iMessage SDK
+- OpenAI API
+- TypeScript
+- Node.js
+- Local JSON memory
 
-data is stored locally in `memory.json`.
+## Case study
 
+See [docs/case-study.md](docs/case-study.md) for the product and implementation notes.
 
-## proactive messages
+## Current limitations
 
-configured via Photon reminders:
+- Experimental local build.
+- Requires macOS/iMessage environment support through Photon.
+- Memory is local JSON, not a production storage layer.
+- The agent needs stronger guardrails before handling sensitive personal plans or locations.
 
-* 9am → morning check-in
-* 2pm → midday suggestion
+## Future work
 
-you can change these in the code.
-
-## stack
-
-* Photon iMessage SDK
-* OpenAI API
-* TypeScript
-* Node.js
-
-## one-line pitch
-
-hooligan is a text-first life sidekick that helps you decide what to do right inside iMessage.
-
-
-## notes
-
-this is an experimental build exploring conversational, ambient AI.
-
-the focus is on:
-
-* natural interaction
-* minimal interface
-* personal utility
+- Add typed memory schema and validation.
+- Add opt-in controls for proactive reminders.
+- Add safer handling for location, schedule, and preference data.
+- Add tests around memory update behavior.
+- Add a dry-run mode for demoing without sending real iMessages.
