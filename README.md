@@ -64,7 +64,7 @@ Notes:
 Run the agent:
 
 ```bash
-npx tsx hooligan-agent.ts
+npm run dev
 ```
 
 ## Example flow
